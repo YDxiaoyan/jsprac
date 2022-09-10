@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>基本版轮播图弹窗版</title>
+    <link rel="stylesheet" href="./font/iconfont.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .banner {
+        width: 500px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        box-shadow: 0 0 8px #333;
+        display: none;
+      }
+
+      .slider {
+        display: flex;
+        justify-content: space-around;
+        position: absolute;
+        bottom: 10px;
+        width: 380px;
+      }
+
+      .slider span {
+        width: 45px;
+        height: 45px;
+        line-height: 45px;
+        background-color: wheat;
+        text-align: center;
+        font-size: 20px;
+        color: #fff;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      .slider span.active {
+        background-color: orange;
+      }
+
+      .iconfont {
+        position: absolute;
+        font-size: 60px;
+        bottom: 90px;
+        opacity: 0.2;
+        color: black;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="banner">
+      <img id="pic" src="images/p1.jpg" width="500" height="375" alt="pkq" />
+      <div class="slider">
+        <span class="active">1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+      </div>
+    </div>
+
+    <i class="iconfont icon-kaiguan"></i>
+    <script>
+      var oBanner = document.querySelector(".banner");
+      var oPic = document.querySelector("#pic");
+      var oSlider = document.querySelector(".slider");
+
+      oSlider.onmouseover = function () {
+        if (event.target.tagName.toLowerCase() === "span") {
+          oPic.src = `images/p${event.target.innerText}.jpg`;
+          for (var ele of event.target.parentElement.children) {
+            ele.className = "";
+          }
+          event.target.className = "active";
+        }
+      };
+
+      // oSlider.onmouseout = function () {
+      //   if (event.target.tagName.toLowerCase() === "span") {
+      //     event.target.className = "";
+      //   }
+      // };
+
+      var oI = document.querySelector(".iconfont");
+      oI.addEventListener("click", function () {
+        if (event.currentTarget.style.color != "orange") {
+          event.currentTarget.style.color = "orange";
+          event.currentTarget.style.opacity = "0.7";
+          oBanner.style.display = "flex"; // 注意这里不是block
+        } else {
+          event.currentTarget.style.color = "black";
+          event.currentTarget.style.opacity = "0.2";
+          oBanner.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>
