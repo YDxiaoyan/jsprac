@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>输入验证</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+      }
+
+      input {
+        outline: none;
+        width: 240px;
+        height: 45px;
+        margin-top: 100px;
+        padding: 4px 8px;
+        border: 2px solid #222;
+        line-height: 45px;
+        font-size: 18px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <input
+      id="user"
+      type="text"
+      name="userName"
+      placeholder="请设置账号 长度6-20位"
+    />
+    <script>
+      /*
+      用户在input中输入账号 如果不符合要求就input边框为红色
+      如果符合要求了 边框为蓝色
+    */
+
+      var oInput = document.querySelector("#user");
+
+      oInput.onkeydown = function () {
+        // console.log(this === event.currentTarget); // true
+        var len = this.value.length;
+        var color = "red";
+        if (len >= 6 && len <= 20) {
+          color = "blue";
+        }
+        this.style.borderColor = color;
+      };
+
+      oInput.onkeyup = function () {
+        var len = this.value.length;
+        var color = "red";
+        if (len >= 6 && len <= 20) {
+          color = "blue";
+        }
+        this.style.borderColor = color;
+      };
+    </script>
+  </body>
+</html>

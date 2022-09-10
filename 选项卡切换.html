@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>选项卡切换</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      ul {
+        list-style-type: none;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .wrap {
+        display: flex;
+        flex-direction: column;
+        width: 600px;
+        height: 265px;
+        /* tab li 45px + content li 220px */
+        box-shadow: 0 0 4px #333;
+      }
+
+      .tab {
+        display: flex;
+        background-color: #666;
+      }
+
+      .tab li {
+        width: 80px;
+        height: 45px;
+        line-height: 45px;
+        font-size: 20px;
+        text-align: center;
+        color: #fff;
+        background-color: #666;
+        border-right: 2px solid orange;
+        cursor: pointer;
+      }
+
+      .tab li:hover {
+        opacity: 0.8;
+      }
+
+      .tab li.on {
+        background-color: #fff;
+        color: orange;
+        font-weight: 700;
+      }
+
+      .content {
+        position: relative;
+      }
+
+      .content li {
+        display: none;
+        /* 不渲染 */
+        position: absolute;
+        width: 100%;
+        height: 220px;
+        background-color: #368;
+        color: #fff;
+        font-size: 30px;
+      }
+
+      .content li.active {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <ul class="tab">
+        <li class="on">图片</li>
+        <li>专栏</li>
+        <li>热点</li>
+      </ul>
+      <ul class="content">
+        <li class="active">我是图片的内容</li>
+        <li>我是专栏的内容</li>
+        <li>我是热点的内容</li>
+      </ul>
+    </div>
+    <script src="js/common.js"></script>
+    <script>
+      var oTab = document.querySelector(".tab");
+      var aConLi = document.querySelectorAll(".content li");
+
+      var index = 0;
+
+      //事件委托
+      oTab.onclick = function (e) {
+        if (e.target.tagName.toLowerCase() === "li") {
+          // 第一次index全局变量为0 后面每次开始先清空前一个被点击li的效果
+          oTab.children[index].className = "";
+          aConLi[index].className = "";
+
+          index = getElementIdx(e.target); // in common.js
+
+          oTab.children[index].className = "on";
+          aConLi[index].className = "active";
+          // 结束后index全局变量为点击的li的索引
+        }
+      };
+
+      // var aTabLi = document.querySelectorAll(".tab li");
+
+      // (function switchTab() {
+      //   for (var i = 0, len = aTabLi.length; i < len; i++) {
+      //     (function (i) {
+      //       aTabLi[i].onclick = function () {
+      //         aTabLi[index].className = "";
+      //         aConLi[index].className = "";
+      //         index = i;
+      //         aTabLi[index].className = "on";
+      //         aConLi[index].className = "active";
+      //       };
+      //     })(i);
+      //   }
+      // })();
+    </script>
+  </body>
+</html>
